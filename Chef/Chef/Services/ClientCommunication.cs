@@ -16,6 +16,10 @@ namespace Chef
             Console.WriteLine("Welcome to our salad restaurant");
         }
 
+        /// <summary>
+        /// Method that asking the client which salad he choses.
+        /// </summary>
+        /// <returns>The name of chosen salad.</returns>
         public static string SaladChoosing()
         {
             string order = string.Empty;
@@ -40,6 +44,9 @@ namespace Chef
             return order;
         }
 
+        /// <summary>
+        /// Method says that we dont have the ordered salad.
+        /// </summary>
         public static void DontHaveThisSalat()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -48,18 +55,32 @@ namespace Chef
             Environment.Exit(1);
         }
 
+        /// <summary>
+        /// Ifall the chefs or waiters are busy - we say that message.
+        /// </summary>
         public static void BusyMessage()
         {
             Console.WriteLine("Sorry our chefs or waiters are busy");
         }
 
+        /// <summary>
+        /// Methos describing all the salad characteristics and some characteristics of the ingredients.
+        /// </summary>
+        /// <param name="salad">Finished salad.</param>
         public static void DescribeSaladIngredients(Salad salad)
         {
+            bool isNullProduct = false;
             Console.WriteLine("\n\tHere is your order:\n");
             Console.WriteLine($"Salad name: {salad.Name}\nSalad calories = {salad.CaloryContent()}\nIs it for vegans? {salad.IsVegan()}\n\n\tIngredients:\n");
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < salad.Products.Length; i++)
             {
+                if (salad.Products[i] is null)
+                {
+                    isNullProduct = true;
+                    continue;
+                }
+
                 sb.Append($"Product name: {salad.Products[i].FoodName}\n");
                 if (salad.Products[i] is Tomato)
                 {
@@ -76,6 +97,11 @@ namespace Chef
                     var m = salad.Products[i] as Meat;
                     sb.Append($"Expiration date: {m.ExpirationDate}\nPrice: {m.Price}\nPart of animal: {m.MeatPart}\nKind of animal: {m.AnimalType}\nFat content: {m.FatContent}%\n\n");
                 }
+            }
+
+            if (isNullProduct)
+            {
+                sb.Append("\n\nWe are so sorry. We didnt have some ingredients and we done the salad without them. The salad is on the house)");
             }
 
             Console.WriteLine(sb);

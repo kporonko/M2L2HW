@@ -7,7 +7,7 @@ using Chef.Interfaces;
 
 namespace Chef.Models.Vegetables
 {
-    internal class Vegetable : IVegetable
+    public class Vegetable : IVegetable
     {
         public Vegetable(int id, double skinWeight, bool isAddingToSalat, bool inContainVitaminA, bool isNormalizeMetabolism, double price, DateTime expirationDate, string foodName, double weight, double calories)
         {

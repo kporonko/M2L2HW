@@ -19,6 +19,11 @@ namespace Chef.Services
         public string CurrentSalad { get; set; }
         public Models.Chef Chef { get; set; }
         public IEatable[] ProductsForSalad { get; set; }
+
+        /// <summary>
+        /// Method calls the method for taking products according to clients order.
+        /// </summary>
+        /// <param name="salad">Client`s order - salad.</param>
         public void ProductsChoosing(string salad)
         {
             AssortmentService assortmentService = new AssortmentService();
@@ -39,6 +44,10 @@ namespace Chef.Services
             }
         }
 
+        /// <summary>
+        /// Method for cutting the pill from vegetables. Weight of ingredients is decreasing because of cutting the pill.
+        /// </summary>
+        /// <param name="products">Salad`s products.</param>
         public void CutProducts(IEatable[] products)
         {
             for (int i = 0; i < products.Length; i++)
@@ -57,6 +66,11 @@ namespace Chef.Services
             }
         }
 
+        /// <summary>
+        /// Overall method of creating the salad from the ingredients taken earlier.
+        /// </summary>
+        /// <param name="eatable">Salad`s products.</param>
+        /// <returns>Salad which is ready for consumption.</returns>
         public Salad CreateSalad(IEatable[] eatable)
         {
             Chef.StartCooking();

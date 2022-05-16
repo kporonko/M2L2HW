@@ -10,8 +10,15 @@ using Chef.Services;
 
 namespace Chef
 {
+    /// <summary>
+    /// I think there a lot of code duplicating but i dont know how to add it to the separate method.
+    /// </summary>
     internal class Recipes
     {
+        /// <summary>
+        /// Method that choosing the ingredients in accordance with salad recipe №1 (with conditions of normalising the metabolism and WITHOUT MEAT because of that and including 3 tomatoes and 3 cucumbers).
+        /// </summary>
+        /// <returns>Products array according to the recipe.</returns>
         public static IEatable[] RecipeSalad1()
         {
             IEatable[] result = new IEatable[6];
@@ -30,6 +37,7 @@ namespace Chef
                 {
                     if (Assortment.AssortmentObject[i].IsGoneOff() == false && tempProduct.IsNormalizeMetabolism == true && tempProduct.IsAddingToSalat == true)
                     {
+                        // Cant separate this part bcs of parameters - Type of vegetable, counter, and 4 more variables.
                         if (Assortment.AssortmentObject[i] is Tomato)
                         {
                             if (tomatoCounter >= 3)
@@ -37,6 +45,8 @@ namespace Chef
                                 continue;
                             }
 
+                            result[j] = Assortment.AssortmentObject[i];
+                            j++;
                             tomatoCounter++;
                         }
 
@@ -47,11 +57,10 @@ namespace Chef
                                 continue;
                             }
 
+                            result[j] = Assortment.AssortmentObject[i];
+                            j++;
                             cucumberCounter++;
                         }
-
-                        result[j] = Assortment.AssortmentObject[i];
-                        j++;
                     }
                 }
                 catch (Exception)
@@ -62,6 +71,10 @@ namespace Chef
             return result;
         }
 
+        /// <summary>
+        /// Method that choosing the ingredients in accordance with salad recipe №2 (for the people who want salad with meat but eat only chicken).
+        /// </summary>
+        /// <returns>Products array according to the recipe.</returns>
         public static IEatable[] RecipeSalad2()
         {
             IEatable[] result = new IEatable[8];
@@ -77,6 +90,7 @@ namespace Chef
                 {
                     if (Assortment.AssortmentObject[i].IsGoneOff() == false)
                     {
+                        // Cant separate this part bcs of parameters - Type of vegetable, counter, and 4 more variables.
                         if (Assortment.AssortmentObject[i] is Tomato)
                         {
                             if (tomatoCounter >= 4)
@@ -84,6 +98,7 @@ namespace Chef
                                 continue;
                             }
 
+                            // I cant separate this part because of 4 variables. It is senceless.
                             result[j] = Assortment.AssortmentObject[i];
                             j++;
                             tomatoCounter++;
@@ -106,9 +121,12 @@ namespace Chef
                                 continue;
                             }
 
-                            result[j] = Assortment.AssortmentObject[i];
-                            j++;
-                            meatCounter++;
+                            if (tempProduct.AnimalType == "Chicken")
+                            {
+                                result[j] = Assortment.AssortmentObject[i];
+                                j++;
+                                meatCounter++;
+                            }
                         }
                     }
                 }
